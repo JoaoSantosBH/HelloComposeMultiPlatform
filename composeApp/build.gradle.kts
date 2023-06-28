@@ -45,6 +45,7 @@ kotlin {
                 implementation(compose.material3)
                 implementation(libs.libres)
                 implementation(libs.voyager.navigator)
+                implementation(libs.voyager.transitions)
                 implementation(libs.composeImageLoader)
                 implementation(libs.napier)
                 implementation(libs.kotlinx.coroutines.core)
