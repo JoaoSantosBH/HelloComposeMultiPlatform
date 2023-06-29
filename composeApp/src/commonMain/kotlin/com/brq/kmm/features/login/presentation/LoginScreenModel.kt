@@ -41,7 +41,7 @@ class LoginScreenModel: ScreenModel {
     }
 
     private fun validateNameField(event: LoginEvent.ValidateNameField) {
-        _uiState.value =  _uiState.value.copy(name = event.name)
+        _uiState.update { it.copy(name = event.name) }
         if (event.name.isNotEmpty()) _uiState.update { it.copy(isNameError = false) }
         else _uiState.update { it.copy(isNameError = true) }
     }
