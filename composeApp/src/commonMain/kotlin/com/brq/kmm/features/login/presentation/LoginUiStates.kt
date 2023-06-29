@@ -1,4 +1,4 @@
-package com.brq.kmm.features.login
+package com.brq.kmm.features.login.presentation
 
 data class LoginUiStates(
     val isSuccessLogin :Boolean = false,

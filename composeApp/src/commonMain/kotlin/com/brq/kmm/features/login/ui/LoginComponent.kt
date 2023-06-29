@@ -1,4 +1,4 @@
-package com.brq.kmm.features.login
+package com.brq.kmm.features.login.ui
 import androidx.compose.foundation.Image
 
 import androidx.compose.foundation.background
@@ -36,6 +36,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brq.kmm.MainRes
+import com.brq.kmm.features.login.presentation.LoginEvent
+import com.brq.kmm.features.login.presentation.LoginUiStates
 import io.github.skeptick.libres.compose.painterResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,11 +73,11 @@ fun LoginLayout(
                     .focusRequester(FocusRequester())
                     .onFocusChanged { focusState ->
                         if (!focusState.isFocused){
-
-                        }
                             onEvent.invoke(LoginEvent.ValidateNameField(state.name))
+                        }
                     },
                 label = { Text(text = MainRes.string.hint_name_text) },
+                maxLines = 1,
                 value = state.name,
                 onValueChange = {
                     onEvent.invoke(LoginEvent.ValidateNameField(it))
@@ -106,6 +108,7 @@ fun LoginLayout(
                     onEvent.invoke(LoginEvent.ValidatePassField(it))
                 },
                 isError = state.isPassError,
+                maxLines = 1,
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Go,
                     keyboardType = KeyboardType.Password

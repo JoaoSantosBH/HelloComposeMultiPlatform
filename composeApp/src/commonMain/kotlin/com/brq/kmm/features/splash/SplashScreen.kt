@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.brq.kmm.features.login.LoginScreen
+import com.brq.kmm.features.login.ui.LoginScreen
 import kotlinx.coroutines.delay
 
 class SplashScreen : Screen {

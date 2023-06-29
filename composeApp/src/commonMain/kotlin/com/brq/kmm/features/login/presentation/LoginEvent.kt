@@ -1,4 +1,4 @@
-package com.brq.kmm.features.login
+package com.brq.kmm.features.login.presentation
 
 sealed class LoginEvent {
     data class ValidateNameField(val name: String) : LoginEvent()

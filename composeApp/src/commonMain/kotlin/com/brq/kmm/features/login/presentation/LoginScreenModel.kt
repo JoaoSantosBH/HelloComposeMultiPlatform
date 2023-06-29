@@ -1,4 +1,4 @@
-package com.brq.kmm.features.login
+package com.brq.kmm.features.login.presentation
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
