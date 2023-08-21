@@ -43,12 +43,13 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.material3)
+                implementation(compose.ui)
                 implementation(libs.libres)
                 implementation(libs.voyager.navigator)
+                implementation(libs.voyager.transitions)
                 implementation(libs.composeImageLoader)
                 implementation(libs.napier)
                 implementation(libs.kotlinx.coroutines.core)
-                implementation(libs.insetsx)
                 implementation(libs.ktor.core)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.kotlinx.datetime)
@@ -111,7 +112,10 @@ android {
 
 
 libres {
-    // https://github.com/Skeptick/libres#setup
+    generatedClassName = "MainRes" // "Res" by default
+    generateNamedArguments = true // false by default
+    baseLocaleLanguageCode = "en" // "en" by default
+    camelCaseNamesForAppleFramework = true // false by default
 }
 
 buildConfig {

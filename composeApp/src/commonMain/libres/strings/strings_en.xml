@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MoviesCompose</string>
+    <string name="home_title_text">Compose Films</string>
+    <string name="home_toolbar_title_text">Compose FIlms</string>
+    <string name="films_tab_title">Filmes</string>
+    <string name="films_tab_favorites">Favoritos</string>
+    <string name="no_movies_yet">Ainda não existem favoritos!</string>
+    <string name="button_ok">OK</string>
+    <string name="continue_label">Continuar</string>
+    <string name="compose_dialog_master_choice_title_dialog_text">Atenção!</string>
+    <string name="compose_dialog_master_choice_info_dialog_text">Texto de aviso</string>
+    <string name="close_label">Fechar</string>
+    <string name="forgot_pass_text">Esqueceu sua senha?</string>
+    <string name="login_label_text">Login</string>
+    <string name="hint_name_text">Username</string>
+    <string name="hint_pass_text">Password</string>
+    <string name="fail_login_text">Falha  no Login!!</string>
+    <string name="app_drawer_title">Menu</string>
+    <string name="exit">Sair</string>
+
+
+
+
+<!--    Exemplos :-->
+    <string name="simple_string">Hello!</string>
+    <string name="string_with_arguments">Hello ${name}!</string>
+
+
+
+    <plurals name="plural_string">
+        <item quantity="one">resource</item>
+        <item quantity="other">resources</item>
+    </plurals>
+</resources>
