@@ -28,11 +28,13 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brq.kmm.MainRes
@@ -73,14 +75,14 @@ fun LoginLayout(
                         .focusRequester(FocusRequester())
                         .onFocusChanged { focusState ->
                             if (!focusState.isFocused){
-                                onEvent.invoke(LoginEvent.ValidateNameField(state.name))
+                                onEvent(LoginEvent.ValidateNameField(state.name))
                             }
                         },
                     label = { Text(text = MainRes.string.hint_name_text) },
-                    maxLines = 1,
-                    value = state.name,
-                    onValueChange = {
-                        onEvent.invoke(LoginEvent.ValidateNameField(it))
+                    singleLine = true,
+                    value = TextFieldValue(text = state.name, selection = TextRange(state.name.length)),
+                    onValueChange = { tvf ->
+                        onEvent(LoginEvent.ValidateNameField(tvf.text))
                     },
                     isError = state.isNameError,
                     keyboardOptions = KeyboardOptions(
@@ -102,13 +104,13 @@ fun LoginLayout(
                 TextField(
                     modifier = Modifier.testTag("Pass textField"),
                     label = { Text(text = MainRes.string.hint_pass_text) },
-                    value = state.pass,
+                    value = TextFieldValue(text = state.pass, selection = TextRange(state.pass.length)),
                     visualTransformation = PasswordVisualTransformation(),
-                    onValueChange = {
-                        onEvent.invoke(LoginEvent.ValidatePassField(it))
+                    onValueChange = { tfv ->
+                        onEvent(LoginEvent.ValidatePassField(tfv.text))
                     },
                     isError = state.isPassError,
-                    maxLines = 1,
+                    singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Go,
                         keyboardType = KeyboardType.Password
@@ -132,7 +134,7 @@ fun LoginLayout(
                 Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                     Button(
                         onClick = {
-                            onEvent.invoke(LoginEvent.ValidateLogin)
+                            onEvent(LoginEvent.ValidateLogin)
                         },
                         shape = RoundedCornerShape(50.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),

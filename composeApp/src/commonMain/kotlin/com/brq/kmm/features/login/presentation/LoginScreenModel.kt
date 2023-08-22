@@ -5,13 +5,14 @@ import cafe.adriel.voyager.core.model.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginScreenModel: ScreenModel {
     private val _uiState: MutableStateFlow<LoginUiStates> =
         MutableStateFlow(LoginUiStates.Empty)
-    var uiSTate: StateFlow<LoginUiStates> = _uiState
+    val uiSTate: StateFlow<LoginUiStates> = _uiState.asStateFlow()
     private val pendingActions = MutableSharedFlow<LoginEvent>()
 
     init { handleEvents() }
