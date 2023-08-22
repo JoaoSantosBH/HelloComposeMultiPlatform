@@ -80,9 +80,12 @@ fun LoginLayout(
                         },
                     label = { Text(text = MainRes.string.hint_name_text) },
                     singleLine = true,
-                    value = TextFieldValue(text = state.name, selection = TextRange(state.name.length)),
-                    onValueChange = { tvf ->
-                        onEvent(LoginEvent.ValidateNameField(tvf.text))
+                    value = TextFieldValue(
+                        text = state.name,
+                        selection = TextRange(state.name.length)),
+                    onValueChange = { tfv ->
+                        if (tfv.text.isNotEmpty())
+                        onEvent(LoginEvent.ValidateNameField(tfv.text))
                     },
                     isError = state.isNameError,
                     keyboardOptions = KeyboardOptions(
@@ -104,9 +107,12 @@ fun LoginLayout(
                 TextField(
                     modifier = Modifier.testTag("Pass textField"),
                     label = { Text(text = MainRes.string.hint_pass_text) },
-                    value = TextFieldValue(text = state.pass, selection = TextRange(state.pass.length)),
+                    value = TextFieldValue(
+                        text = state.pass,
+                        selection = TextRange(state.pass.length)),
                     visualTransformation = PasswordVisualTransformation(),
                     onValueChange = { tfv ->
+                        if (tfv.text.isNotEmpty())
                         onEvent(LoginEvent.ValidatePassField(tfv.text))
                     },
                     isError = state.isPassError,
