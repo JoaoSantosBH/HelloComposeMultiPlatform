@@ -62,6 +62,7 @@ fun LoginLayout(
 
             item {
                 Image(painter = painterResource(MainRes.image.logotmdb), contentDescription = null)
+                Spacer(Modifier.height(12.dp))
                 Text(
                     modifier = Modifier.testTag("Login title"),
                     text = MainRes.string.login_label_text,
@@ -84,7 +85,6 @@ fun LoginLayout(
                         text = state.name,
                         selection = TextRange(state.name.length)),
                     onValueChange = { tfv ->
-                        if (tfv.text.isNotEmpty())
                         onEvent(LoginEvent.ValidateNameField(tfv.text))
                     },
                     isError = state.isNameError,
@@ -112,7 +112,6 @@ fun LoginLayout(
                         selection = TextRange(state.pass.length)),
                     visualTransformation = PasswordVisualTransformation(),
                     onValueChange = { tfv ->
-                        if (tfv.text.isNotEmpty())
                         onEvent(LoginEvent.ValidatePassField(tfv.text))
                     },
                     isError = state.isPassError,
