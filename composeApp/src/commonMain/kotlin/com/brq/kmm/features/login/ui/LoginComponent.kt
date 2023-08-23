@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brq.kmm.MainRes
+import com.brq.kmm.core.components.LoadingLayout
 import com.brq.kmm.features.login.presentation.LoginEvent
 import com.brq.kmm.features.login.presentation.LoginUiStates
 import io.github.skeptick.libres.compose.painterResource
@@ -62,7 +64,7 @@ fun LoginLayout(
 
             item {
                 Image(painter = painterResource(MainRes.image.logotmdb), contentDescription = null)
-                Spacer(Modifier.height(12.dp))
+                Spacer(Modifier.height(16.dp))
                 Text(
                     modifier = Modifier.testTag("Login title"),
                     text = MainRes.string.login_label_text,
@@ -90,7 +92,7 @@ fun LoginLayout(
                     isError = state.isNameError,
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Text
+                        keyboardType = KeyboardType.Email
                     )
                 )
                 if (state.isNameError) {
@@ -117,7 +119,7 @@ fun LoginLayout(
                     isError = state.isPassError,
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Go,
+                        imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Password
                     ),
                     keyboardActions = KeyboardActions(
@@ -136,19 +138,31 @@ fun LoginLayout(
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
+                if (state.wrongPassError) {
+                    Text(
+                        text = MainRes.string.wrong_pass,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
                 Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-                    Button(
-                        onClick = {
-                            onEvent(LoginEvent.ValidateLogin)
-                        },
-                        shape = RoundedCornerShape(50.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .testTag("Button Login")
-                            .height(50.dp)
-                    ) {
-                        Text(text = MainRes.string.login_label_text)
+                    if (state.isLoading) {
+                        LoadingLayout(PaddingValues())
+                    } else {
+                        Button(
+                            onClick = {
+                                onEvent(LoginEvent.ValidateLogin)
+                            },
+                            shape = RoundedCornerShape(50.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .testTag("Button Login")
+                                .height(50.dp)
+                        ) {
+                            Text(text = MainRes.string.login_label_text)
+                        }
                     }
                 }
 
