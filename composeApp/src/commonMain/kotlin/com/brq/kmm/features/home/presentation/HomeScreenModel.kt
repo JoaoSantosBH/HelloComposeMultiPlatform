@@ -27,7 +27,7 @@ class HomeScreenModel : ScreenModel {
         coroutineScope.launch {
             pendingActions.collect { event ->
                 when(event) {
-                   is HomeEvent.onClickCardMovieEvent -> println()
+                   is HomeEvent.OnClickCardMovieEvent -> println()
                     else -> println()
                 }
 
