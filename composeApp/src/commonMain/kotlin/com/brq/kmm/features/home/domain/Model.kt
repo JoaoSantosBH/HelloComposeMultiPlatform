@@ -3,7 +3,7 @@ package com.brq.kmm.features.home.domain
 import com.brq.kmm.features.home.domain.MovieModel.Companion.DUMB_LIST_POPULAR
 
 
-data class PopularMoviesModel(
+data class MoviesModel(
     val page: Int?,
     val results: List<MovieModel>,
     val totalPages: Int?,
@@ -11,7 +11,7 @@ data class PopularMoviesModel(
 ) {
     companion object {
 
-        val DUMB_RETURN_LIST = PopularMoviesModel(
+        val DUMB_RETURN_LIST = MoviesModel(
             page = 1,
             results = DUMB_LIST_POPULAR,
             totalPages = 38029,

@@ -10,5 +10,7 @@ class NetworkUtils {
         const val PATH_PREFIX_URL = "https://image.tmdb.org/t/p/w300/"
         const val FILM_ID = "filmId"
         const val FILM_ID_ARG = "/{filmId}"
+        const val PARAM_LANGUAGE = "language"
+        const val PARAM_PAGES_COUNT = "page"
     }
 }
