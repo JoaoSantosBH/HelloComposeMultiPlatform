@@ -17,10 +17,12 @@
     <string name="hint_name_text">Username</string>
     <string name="hint_pass_text">Password</string>
     <string name="fail_login_text">Falha  no Login!!</string>
+    <string name="wrong_pass">A senha digitada não confere!</string>
     <string name="app_drawer_title">Menu</string>
     <string name="exit">Sair</string>
-
-
+    <string name="home_title_app_bar">Movies</string>
+    <string name="tab_all_movies_title_text">Todos os filmes</string>
+    <string name="tab_favorite_movies_title_text">Filmes favoritos</string>
 
 
 <!--    Exemplos :-->

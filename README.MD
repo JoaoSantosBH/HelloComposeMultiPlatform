@@ -1,21 +1,26 @@
-# Compose Multiplatform Application
 
-## Before running!
- - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)
- - install JDK 8 on your machine
- - add `local.properties` file to the project root and set a path to Android SDK there
- - run `./gradlew podInstall` in the project root
 
-### Android
-To run the application on android device/emulator:  
- - open project in Android Studio and run imported android run configuration
+# Hello Compose Multiplatform
 
-To build the application bundle:
- - run `./gradlew :composeApp:assembleDebug`
- - find `.apk` file in `composeApp/build/outputs/apk/debug/composeApp-debug.apk`
+### App de exemplo do Compose Multplatform
 
-### iOS
-To run the application on iPhone device/simulator:
- - Open `iosApp/iosApp.xcworkspace` in Xcode and run standard configuration
- - Or use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio
+Para instruções de como configurar o projeto em KMP por favor acesse o [link](https://medium.com/@joaomarcelo-ms/kotlin-multiplataform-compartilhando-c%C3%B3digo-entre-android-e-ios-87c809e34220)
+- Padrão Clean
+- Consumo de API the movies db
+- Material3
+- Voyager
+- Libres
+- Ktor-client
+- Kotlinx-serialization
+- Koin
+- Compose-image-loader
+- Build Config
+
+![Splash](img/00_ios.png)  
+![Login](img/01_splash.png)  
+![Home](img/02_login.png)  
+![Details](img/03_home.png)
+
+Crie um usuário no [TMDB](https://developer.themoviedb.org/reference/movie-popular-list)
+Logo após crie uma chave de api e copie ela e o token de acesso para autorizar na plataforma e coloque no código do projeto
 

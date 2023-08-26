@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".AndroidApp"
-        android:icon="@android:drawable/ic_menu_compass"
+        android:icon="@drawable/logotmdb"
+        android:roundIcon="@drawable/logotmdb"
         android:label="HelloComposeMultiPlatform"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
