@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class HomeScreenModel(private val service:Services) : ScreenModel {
+class HomeScreenModel(private val service:Services, val navigator: () -> Unit) : ScreenModel {
 
     private val _uiState : MutableStateFlow<HomeUiStates> = MutableStateFlow(HomeUiStates.Empty)
     val uiState : StateFlow<HomeUiStates> = _uiState.asStateFlow()
@@ -30,7 +30,7 @@ class HomeScreenModel(private val service:Services) : ScreenModel {
         coroutineScope.launch {
             pendingActions.collect { event ->
                 when(event) {
-                   is HomeEvent.OnClickCardMovieEvent -> println()
+                   is HomeEvent.OnClickCardMovieEvent -> navigator.invoke()
                     else -> println()
                 }
 
