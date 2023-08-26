@@ -33,7 +33,7 @@ class MovieDetailsScreen(val movieId: Int) : Screen, KoinComponent {
         MoviesDetailLayout(onEvent, state, movieId)
 
         LaunchedEffect(key1 = null) {
-            viewModel.getMoviesDetail()
+            viewModel.getMoviesDetail(movieId)
         }
     }
 }

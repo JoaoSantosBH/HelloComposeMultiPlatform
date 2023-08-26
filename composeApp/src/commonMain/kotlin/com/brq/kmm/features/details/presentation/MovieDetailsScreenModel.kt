@@ -3,10 +3,12 @@ package com.brq.kmm.features.details.presentation
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.brq.kmm.core.domain.Services
+import com.brq.kmm.features.details.data.remote.MovieDetailResponse.Companion.toDomain
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
@@ -29,7 +31,6 @@ class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
         coroutineScope.launch {
             pendingActions.collect { event ->
                 when(event) {
-                    MovieDetailsEvent.GetMovieDetails -> getMoviesDetail()
                     MovieDetailsEvent.SetLoadingImage -> setLoading()
                     MovieDetailsEvent.FinishLoadingImage -> finishLoading()
                     is MovieDetailsEvent.FavoriteMovie -> favoriteMovie(event.id)
@@ -62,7 +63,16 @@ class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
         
     }
 
-     fun getMoviesDetail() {
-        
+     fun getMoviesDetail(movieId: Int) {
+         coroutineScope.launch {
+             val result = service.getMovieDetails(movieId)
+             result.toDomain()
+
+
+         }
+    }
+
+    private fun setMovieId(movieId: String) {
+        _uiState.update { it.copy(movieId = movieId) }
     }
 }
