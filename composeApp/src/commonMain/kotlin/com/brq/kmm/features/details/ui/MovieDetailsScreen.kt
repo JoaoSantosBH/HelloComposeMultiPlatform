@@ -15,7 +15,7 @@ import com.brq.kmm.features.details.presentation.MovieDetailsScreenModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class MovieDetailsScreen: Screen, KoinComponent {
+class MovieDetailsScreen(val movieId: Int) : Screen, KoinComponent {
     @Composable
     override fun Content() {
 
@@ -30,7 +30,7 @@ class MovieDetailsScreen: Screen, KoinComponent {
             viewModel.onEvent(event)
         }
 
-        MoviesDetailLayout(onEvent, state)
+        MoviesDetailLayout(onEvent, state, movieId)
 
         LaunchedEffect(key1 = null) {
             viewModel.getMoviesDetail()

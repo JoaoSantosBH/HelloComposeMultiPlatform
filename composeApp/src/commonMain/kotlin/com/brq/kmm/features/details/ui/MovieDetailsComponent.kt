@@ -11,13 +11,14 @@ import com.brq.kmm.features.details.presentation.MovieDetailsUiState
 @Composable
 fun MoviesDetailLayout(
     onEvent: (MovieDetailsEvent) -> Unit,
-    state: MovieDetailsUiState
+    state: MovieDetailsUiState,
+    movieId: Int
 ) {
 
     Scaffold(
 //        topBar = {  },
         content = { paddingValues ->
-            Text("Detalhes do Filme")
+            Text("Detalhes do Filme $movieId")
         }
     )
 }

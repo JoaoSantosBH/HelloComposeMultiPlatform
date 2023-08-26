@@ -24,8 +24,8 @@ class HomeScreen : Screen, KoinComponent {
         val services by inject<Services>()
 
         val navigator = LocalNavigator.currentOrThrow
-        val navigate : ()-> Unit = {
-            navigator.push(MovieDetailsScreen())
+        val navigate : (Int)-> Unit = { movieId ->
+            navigator.push(MovieDetailsScreen(movieId))
         }
         val viewModel = rememberScreenModel { HomeScreenModel(services, navigate) }
         val state by remember { viewModel.uiState }.collectAsState()
