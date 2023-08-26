@@ -1,9 +1,13 @@
 package com.brq.kmm.core.data.remote.client
 
+import HelloComposeMultiPlatform.composeApp.BuildConfig
 import com.brq.kmm.core.data.NetworkUtils.Companion.BASE_URL
 import com.brq.kmm.core.data.NetworkUtils.Companion.MOVIES_POPULAR
+import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_KTOR_CLIENT
 import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_LANGUAGE
 import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_PAGES_COUNT
+import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_TOKEN_PREFIX
+import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_TYPE
 import com.brq.kmm.core.data.NetworkUtils.Companion.PORTUGUESE_LANGUAGE
 import com.brq.kmm.core.domain.ApiError
 import com.brq.kmm.core.domain.ApiException
@@ -29,9 +33,9 @@ class KtorClient(
                     parameters.append(PARAM_PAGES_COUNT, 1.toString())
                 }
                 headers {
-                    append(HttpHeaders.Accept, "application/json")
-                    append(HttpHeaders.Authorization, "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MWZlMTc5NDdkYWU5MmU5OWY2N2VjNTU5NTE4M2MyZiIsInN1YiI6IjVhMTVmMTIwMGUwYTI2MzhiYTAwMTc1NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wg-F2Ra3uRdaJTFU5MA5vj5_W7K3MLrSydYSb5VVVsw")
-                    append(HttpHeaders.UserAgent, "ktor client")
+                    append(HttpHeaders.Accept, PARAM_TYPE)
+                    append(HttpHeaders.Authorization, PARAM_TOKEN_PREFIX + BuildConfig.API_TOKEN)
+                    append(HttpHeaders.UserAgent, PARAM_KTOR_CLIENT)
                 }
             }
         } catch (e: IOException) {

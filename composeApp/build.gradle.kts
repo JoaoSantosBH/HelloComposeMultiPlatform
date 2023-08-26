@@ -127,8 +127,10 @@ libres {
 }
 
 buildConfig {
-  // BuildConfig configuration here.
-  // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
+
+    buildConfigField("String", "API_KEY", provider { "\"${project.rootProject.properties.get("API_KEY")}\"" })
+    buildConfigField("String", "API_TOKEN", provider { "\"${project.rootProject.properties.get("API_TOKEN")}\"" })
+
 }
 
 sqldelight {

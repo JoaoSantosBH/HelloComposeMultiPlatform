@@ -12,5 +12,8 @@ class NetworkUtils {
         const val FILM_ID_ARG = "/{filmId}"
         const val PARAM_LANGUAGE = "language"
         const val PARAM_PAGES_COUNT = "page"
+        const val PARAM_TYPE = "application/json"
+        const val PARAM_TOKEN_PREFIX = "Bearer "
+        const val PARAM_KTOR_CLIENT = "ktor client"
     }
 }
