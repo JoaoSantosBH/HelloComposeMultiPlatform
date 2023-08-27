@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 
 class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
 
-    private val _uiState: MutableStateFlow<MovieDetailsUiState> = MutableStateFlow(MovieDetailsUiState.Empty)
+    private val _uiState: MutableStateFlow<MovieDetailsUiState> =
+        MutableStateFlow(MovieDetailsUiState.Empty)
     val uiState: StateFlow<MovieDetailsUiState> = _uiState.asStateFlow()
     private val pendingActions = MutableSharedFlow<MovieDetailsEvent>()
 
@@ -30,7 +31,7 @@ class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
     private fun handleEvents() {
         coroutineScope.launch {
             pendingActions.collect { event ->
-                when(event) {
+                when (event) {
                     MovieDetailsEvent.SetLoadingImage -> setLoading()
                     MovieDetailsEvent.FinishLoadingImage -> finishLoading()
                     is MovieDetailsEvent.FavoriteMovie -> favoriteMovie(event.id)
@@ -44,32 +45,46 @@ class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
     }
 
     private fun showErrorMessage(message: String) {
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                errorMessage = message,
+                mustShowErrorDialog = true
+            )
+        }
 
+    }
+
+    private fun favoriteMovie(movieId: Int) {
+        coroutineScope.launch {
+//            db.insertFavoriteMovie(movieId.toLocal())
+//            _uiState.update { it.copy(
+//                isFavorite = db.checkIfisAFavoriteMovie(movieId)) }
+        }
     }
 
     private fun unFavoriteMovie(id: Int) {
-        
-    }
-
-    private fun favoriteMovie(id: Int) {
-        
+        coroutineScope.launch {
+//            val toRemove = db.getFavoriteMovieById(id)
+//            db.removeFavoriteMovie(toRemove)
+//            _uiState.update { it.copy(isFavorite = db.checkIfisAFavoriteMovie(id)) }
+        }
     }
 
     private fun finishLoading() {
-        
+        _uiState.update { it.copy(isLoading = false) }
     }
 
     private fun setLoading() {
-        
+        _uiState.update { it.copy(isLoading = true) }
     }
 
-     fun getMoviesDetail(movieId: Int) {
-         coroutineScope.launch {
-             val result = service.getMovieDetails(movieId)
-             result.toDomain()
-
-
-         }
+    fun getMoviesDetail(movieId: Int) {
+        coroutineScope.launch {
+            setLoading()
+            val result = service.getMovieDetails(movieId)
+            _uiState.update { it.copy(movie = result.toDomain(), isLoading = false) }
+        }
     }
 
     private fun setMovieId(movieId: String) {

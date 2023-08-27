@@ -24,10 +24,10 @@ import io.ktor.client.request.headers
 import io.ktor.http.HttpHeaders
 import okio.IOException
 
-class KtorClient(
+class KtorClientImpl(
     private val client: HttpClient
 ) : Services {
-//     --url 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1' \
+//     https://api.themoviedb.org/3/movie/popular?language=en-US&page=1
     override suspend fun getPopularMoviesList(): List<MovieResponse> {
         val result = try {
             client.get(BASE_URL + MOVIES_POPULAR ) {
@@ -59,10 +59,9 @@ class KtorClient(
         }
     }
 
-    //   https://api.themoviedb.org/3/movie/movie_id?language=en-US
+    //   https://api.themoviedb.org/3/movie/{movie_id}?language=en-US
     override suspend fun getMovieDetails(movieId: Int): MovieDetailResponse {
         val result = try {
-
             client.get(BASE_URL + MOVIE_DETAILS + movieId ) {
                 url {
                     parameters.append(PARAM_LANGUAGE, PORTUGUESE_LANGUAGE)
@@ -85,7 +84,7 @@ class KtorClient(
         }
 
         return try {
-            result.body<MovieDetailResponse>()
+            result.body()
         } catch(e: Exception) {
             throw ApiException(ApiError.SERVER_ERROR)
         }

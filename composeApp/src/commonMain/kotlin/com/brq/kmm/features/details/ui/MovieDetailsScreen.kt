@@ -30,7 +30,9 @@ class MovieDetailsScreen(val movieId: Int) : Screen, KoinComponent {
             viewModel.onEvent(event)
         }
 
-        MoviesDetailLayout(onEvent, state, movieId)
+        val pop: ()-> Unit  = { navigator.pop() }
+
+        MoviesDetailLayout(onEvent, state, pop)
 
         LaunchedEffect(key1 = null) {
             viewModel.getMoviesDetail(movieId)

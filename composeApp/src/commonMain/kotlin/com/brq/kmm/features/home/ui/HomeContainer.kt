@@ -110,7 +110,7 @@ fun TabLayout(onEvent: (HomeEvent) -> Unit) {
 fun CardMovie(onEvent: (HomeEvent) -> Unit, card: MovieModel) {
     Card(modifier = Modifier
         .testTag("cardMovie${card.id}")
-        .size(300.dp)
+        .size(250.dp)
         .clickable {
             onEvent(HomeEvent.OnClickCardMovieEvent(card.id))
 
