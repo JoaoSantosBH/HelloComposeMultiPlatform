@@ -20,10 +20,14 @@
     <string name="wrong_pass">A senha digitada não confere!</string>
     <string name="app_drawer_title">Menu</string>
     <string name="exit">Sair</string>
-    <string name="home_title_app_bar">Movies</string>
+    <string name="home_title_app_bar">TMDB</string>
     <string name="tab_all_movies_title_text">Todos os filmes</string>
     <string name="tab_favorite_movies_title_text">Filmes favoritos</string>
-
+    <string name="sinopse_text">SINOPSE</string>
+    <string name="first_card_title">CURTIDAS</string>
+    <string name="second_card_title">FAVORITOS</string>
+    <string name="third_card_title">ESTREIA</string>
+    <string name="fourth_card_title">LEGENDA</string>
 
 <!--    Exemplos :-->
     <string name="simple_string">Hello!</string>

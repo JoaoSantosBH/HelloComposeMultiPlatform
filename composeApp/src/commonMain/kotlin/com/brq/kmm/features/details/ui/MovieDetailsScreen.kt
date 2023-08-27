@@ -1,4 +1,4 @@
-package com.brq.kmm.features.home.ui
+package com.brq.kmm.features.details.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,39 +10,32 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.brq.kmm.core.domain.Services
-import com.brq.kmm.features.details.ui.MovieDetailsScreen
-import com.brq.kmm.features.home.presentation.HomeEvent
-import com.brq.kmm.features.home.presentation.HomeScreenModel
+import com.brq.kmm.features.details.presentation.MovieDetailsEvent
+import com.brq.kmm.features.details.presentation.MovieDetailsScreenModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class HomeScreen : Screen, KoinComponent {
-
+class MovieDetailsScreen(val movieId: Int) : Screen, KoinComponent {
     @Composable
     override fun Content() {
 
         val services by inject<Services>()
-
-        val navigator = LocalNavigator.currentOrThrow
-        val navigate : (Int)-> Unit = { movieId ->
-            navigator.push(MovieDetailsScreen(movieId))
-        }
-        val viewModel = rememberScreenModel { HomeScreenModel(services, navigate) }
+        val viewModel = rememberScreenModel { MovieDetailsScreenModel(services) }
         val state by remember { viewModel.uiState }.collectAsState()
 
+        val navigator = LocalNavigator.currentOrThrow
 
-        val onEvent: (HomeEvent) -> Unit = { event ->
+        val onEvent: (MovieDetailsEvent) -> Unit = { event ->
             println(event)
             viewModel.onEvent(event)
         }
 
-        HomeLayout(onEvent, state)
+        val pop: ()-> Unit  = { navigator.pop() }
+
+        MoviesDetailLayout(onEvent, state, pop)
 
         LaunchedEffect(key1 = null) {
-            viewModel.getPopularMovies()
+            viewModel.getMoviesDetail(movieId)
         }
-
     }
-
-
 }

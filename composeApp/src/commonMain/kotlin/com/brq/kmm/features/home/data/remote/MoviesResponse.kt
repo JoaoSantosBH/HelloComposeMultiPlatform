@@ -95,6 +95,6 @@ data class MovieResponse(
     }
 }
 
-fun String?.toDateFormat(): String {
- return "123"
+fun String?.toDateFormat(): String { //TODO criar método de datas
+ return "12/2023"
 }
