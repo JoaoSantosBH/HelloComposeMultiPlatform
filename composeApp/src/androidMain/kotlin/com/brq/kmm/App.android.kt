@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.brq.kmm.core.di.androidModule
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
@@ -19,7 +20,7 @@ class AndroidApp : Application() {
         startKoin {
             modules(
                 listOf(
-                module { single<Context> { this@AndroidApp } },
+                module { single<Context> { INSTANCE } },
                 androidModule)
             )
         }

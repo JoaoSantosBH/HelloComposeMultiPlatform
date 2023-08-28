@@ -1,4 +1,4 @@
-package com.brq.kmm
+package com.brq.kmm.core.di
 
 import com.brq.kmm.core.data.local.DatabaseDriverFactory
 import com.brq.kmm.core.data.remote.client.HttpClientFactory
@@ -11,7 +11,6 @@ import org.koin.dsl.module
 val androidModule = module {
     single { HttpClientFactory().create() }
     factory<Services> { KtorClientImpl(get()) }
-    single { DatabaseDriverFactory(get()).create() }
+    single { DatabaseDriverFactory().create() }
     single<FavoriteMoviesDataSource> { FavoriteMoviesSqlDataSrc(get()) }
-
 }
