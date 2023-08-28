@@ -25,6 +25,7 @@ class LoginScreen : Screen {
         val state by remember { viewModel.uiSTate }.collectAsState()
 
         val onEvent: (LoginEvent) -> Unit = { event ->
+            println(event)
             viewModel.onEvent(event)
         }
 

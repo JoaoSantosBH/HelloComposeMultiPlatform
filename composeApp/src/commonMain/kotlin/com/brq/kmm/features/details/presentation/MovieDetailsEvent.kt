@@ -6,8 +6,8 @@ sealed class MovieDetailsEvent {
     object GetMovieDetails: MovieDetailsEvent()
     object SetLoadingImage: MovieDetailsEvent()
     object FinishLoadingImage: MovieDetailsEvent()
-    data class FavoriteMovie(val id: Int) : MovieDetailsEvent()
-    data class UnFavoriteMovie(val id: Int) : MovieDetailsEvent()
+    data class FavoriteMovie(val id: String) : MovieDetailsEvent()
+    data class UnFavoriteMovie(val id: String) : MovieDetailsEvent()
     data class Error(val message: String) : MovieDetailsEvent()
 
 }

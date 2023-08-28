@@ -135,10 +135,8 @@ buildConfig {
 
 sqldelight {
   databases {
-    create("MyDatabase") {
-      // Database configuration here.
-      // https://cashapp.github.io/sqldelight
-      packageName.set("com.brq.kmm.db")
+    create("TmdbDatabase") {
+      packageName.set("com.brq.kmm.database")
     }
   }
 }

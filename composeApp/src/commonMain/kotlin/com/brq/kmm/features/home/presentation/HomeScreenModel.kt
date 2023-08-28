@@ -31,6 +31,7 @@ class HomeScreenModel(private val service:Services, val navigator: (Int) -> Unit
             pendingActions.collect { event ->
                 when(event) {
                    is HomeEvent.OnClickCardMovieEvent -> navigator(event.movieId?:0)
+                    is HomeEvent.OnClickExitEvent -> navigator(event.id?:0)
                     else -> {}
                 }
 

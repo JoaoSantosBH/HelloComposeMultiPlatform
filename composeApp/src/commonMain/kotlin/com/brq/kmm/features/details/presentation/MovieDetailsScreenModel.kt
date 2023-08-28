@@ -3,7 +3,12 @@ package com.brq.kmm.features.details.presentation
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.brq.kmm.core.domain.Services
+import com.brq.kmm.features.details.data.local.FavoriteMovieModel
 import com.brq.kmm.features.details.data.remote.MovieDetailResponse.Companion.toDomain
+import com.brq.kmm.features.details.domain.FavoriteMoviesDataSource
+import com.brq.kmm.features.details.domain.MovieDetailsModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +16,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
+class MovieDetailsScreenModel(
+    private val service: Services,
+    private val ds: FavoriteMoviesDataSource
+    ) : ScreenModel {
 
     private val _uiState: MutableStateFlow<MovieDetailsUiState> =
         MutableStateFlow(MovieDetailsUiState.Empty)
@@ -55,22 +63,32 @@ class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
 
     }
 
-    private fun favoriteMovie(movieId: Int) {
+    private fun favoriteMovie(movieId: String) {
         coroutineScope.launch {
-//            db.insertFavoriteMovie(movieId.toLocal())
-//            _uiState.update { it.copy(
-//                isFavorite = db.checkIfisAFavoriteMovie(movieId)) }
+            val movie = _uiState.value.movie
+             ds.insertFavoriteMovie(
+                 FavoriteMovieModel(
+                 movieId = movie.id, movieName = movie.title))
+            _uiState.update { it.copy(
+                isFavorite = ds.checkIfIsAFavoriteMovie(movieId)) }
         }
     }
 
-    private fun unFavoriteMovie(id: Int) {
+    private fun unFavoriteMovie(movieId: String) {
         coroutineScope.launch {
-//            val toRemove = db.getFavoriteMovieById(id)
-//            db.removeFavoriteMovie(toRemove)
-//            _uiState.update { it.copy(isFavorite = db.checkIfisAFavoriteMovie(id)) }
+            val toRemove = ds.getFavoriteMovie(movieId)
+            ds.removeFavoriteMovie(movieId)
+            _uiState.update { it.copy(isFavorite = ds.checkIfIsAFavoriteMovie(movieId)) }
         }
     }
 
+    private fun setUiValues(mv: MovieDetailsModel) {
+        CoroutineScope(Dispatchers.Default).launch {
+            _uiState.update { it.copy(movie = mv, movieId = mv.id.toString(),isLoading = false) }
+            val isFavorite = ds.checkIfIsAFavoriteMovie(_uiState.value.movie.id.toString())
+            if (isFavorite) _uiState.update { it.copy(isFavorite = isFavorite) }
+        }
+    }
     private fun finishLoading() {
         _uiState.update { it.copy(isLoading = false) }
     }
@@ -83,7 +101,7 @@ class MovieDetailsScreenModel(private val service: Services) : ScreenModel {
         coroutineScope.launch {
             setLoading()
             val result = service.getMovieDetails(movieId)
-            _uiState.update { it.copy(movie = result.toDomain(), isLoading = false) }
+            setUiValues(result.toDomain())
         }
     }
 

@@ -13,6 +13,7 @@ import com.brq.kmm.core.domain.Services
 import com.brq.kmm.features.details.ui.MovieDetailsScreen
 import com.brq.kmm.features.home.presentation.HomeEvent
 import com.brq.kmm.features.home.presentation.HomeScreenModel
+import com.brq.kmm.features.login.ui.LoginScreen
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -25,7 +26,8 @@ class HomeScreen : Screen, KoinComponent {
 
         val navigator = LocalNavigator.currentOrThrow
         val navigate : (Int)-> Unit = { movieId ->
-            navigator.push(MovieDetailsScreen(movieId))
+            if (movieId == -555) navigator.push(LoginScreen())
+            else navigator.push(MovieDetailsScreen(movieId))
         }
         val viewModel = rememberScreenModel { HomeScreenModel(services, navigate) }
         val state by remember { viewModel.uiState }.collectAsState()

@@ -10,6 +10,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.brq.kmm.core.domain.Services
+import com.brq.kmm.features.details.domain.FavoriteMoviesDataSource
 import com.brq.kmm.features.details.presentation.MovieDetailsEvent
 import com.brq.kmm.features.details.presentation.MovieDetailsScreenModel
 import org.koin.core.component.KoinComponent
@@ -20,7 +21,8 @@ class MovieDetailsScreen(val movieId: Int) : Screen, KoinComponent {
     override fun Content() {
 
         val services by inject<Services>()
-        val viewModel = rememberScreenModel { MovieDetailsScreenModel(services) }
+        val ds by inject<FavoriteMoviesDataSource>()
+        val viewModel = rememberScreenModel { MovieDetailsScreenModel(services,ds) }
         val state by remember { viewModel.uiState }.collectAsState()
 
         val navigator = LocalNavigator.currentOrThrow

@@ -95,9 +95,9 @@ fun DetailsLayout(
                                     .size(42.dp)
                                     .clickable {
                                         if (state.isFavorite)
-                                            onEvent(MovieDetailsEvent.UnFavoriteMovie(state.movie.id))
+                                            onEvent(MovieDetailsEvent.UnFavoriteMovie(state.movie.id.toString()))
                                         else
-                                            onEvent(MovieDetailsEvent.FavoriteMovie(state.movie.id))
+                                            onEvent(MovieDetailsEvent.FavoriteMovie(state.movie.id.toString()))
                                     },
                                 painter = if (state.isFavorite) painterResource(MainRes.image.ic_heart_filled) else painterResource(MainRes.image.ic_heart_not_filled),
                                 contentDescription = null
