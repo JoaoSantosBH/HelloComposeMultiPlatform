@@ -16,5 +16,9 @@ INTO FavoriteMovieEntity(
 )
 VALUES( ?, ?);
 
+getFavoriteMoviesList:
+SELECT *
+FROM FavoriteMovieEntity;
+
 removeFavoriteMovie:
 DELETE FROM  FavoriteMovieEntity WHERE movieId = :movieId;

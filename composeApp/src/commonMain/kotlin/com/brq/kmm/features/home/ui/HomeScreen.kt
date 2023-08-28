@@ -10,6 +10,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.brq.kmm.core.domain.Services
+import com.brq.kmm.features.details.domain.FavoriteMoviesDataSource
 import com.brq.kmm.features.details.ui.MovieDetailsScreen
 import com.brq.kmm.features.home.presentation.HomeEvent
 import com.brq.kmm.features.home.presentation.HomeScreenModel
@@ -23,13 +24,13 @@ class HomeScreen : Screen, KoinComponent {
     override fun Content() {
 
         val services by inject<Services>()
-
+        val dataSource by inject  <FavoriteMoviesDataSource>()
         val navigator = LocalNavigator.currentOrThrow
         val navigate : (Int)-> Unit = { movieId ->
             if (movieId == -555) navigator.push(LoginScreen())
             else navigator.push(MovieDetailsScreen(movieId))
         }
-        val viewModel = rememberScreenModel { HomeScreenModel(services, navigate) }
+        val viewModel = rememberScreenModel { HomeScreenModel(services, navigate, dataSource) }
         val state by remember { viewModel.uiState }.collectAsState()
 
 

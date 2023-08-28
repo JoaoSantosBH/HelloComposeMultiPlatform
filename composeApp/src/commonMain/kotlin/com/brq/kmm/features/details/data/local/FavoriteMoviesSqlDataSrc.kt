@@ -33,5 +33,10 @@ class FavoriteMoviesSqlDataSrc(
         return result != null
     }
 
+    override fun getFavoriteMoviesList(): List<Int> {
+        val result = queries.getFavoriteMoviesList().executeAsList()
+        return  result.map { it.movieId.toInt() }
+    }
+
 
 }
