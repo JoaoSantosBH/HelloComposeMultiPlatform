@@ -17,10 +17,11 @@ class AndroidApp : Application() {
         super.onCreate()
         INSTANCE = this
         startKoin {
-            val appModule = module {
-                single<Context> { this@AndroidApp }
-            }
-            modules(listOf(appModule, androidModule))
+            modules(
+                listOf(
+                module { single<Context> { this@AndroidApp } },
+                androidModule)
+            )
         }
     }
 }
