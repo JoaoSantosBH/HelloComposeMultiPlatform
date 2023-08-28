@@ -40,8 +40,8 @@ class MovieDetailsScreenModel(
         coroutineScope.launch {
             pendingActions.collect { event ->
                 when (event) {
-                    MovieDetailsEvent.SetLoadingImage -> setLoading()
-                    MovieDetailsEvent.FinishLoadingImage -> finishLoading()
+                    is MovieDetailsEvent.SetLoadingImage -> setLoading()
+                    is MovieDetailsEvent.FinishLoadingImage -> finishLoading()
                     is MovieDetailsEvent.FavoriteMovie -> favoriteMovie(event.id)
                     is MovieDetailsEvent.UnFavoriteMovie -> unFavoriteMovie(event.id)
                     is MovieDetailsEvent.Error -> showErrorMessage(event.message)
@@ -76,15 +76,14 @@ class MovieDetailsScreenModel(
 
     private fun unFavoriteMovie(movieId: String) {
         coroutineScope.launch {
-            val toRemove = ds.getFavoriteMovie(movieId)
             ds.removeFavoriteMovie(movieId)
             _uiState.update { it.copy(isFavorite = ds.checkIfIsAFavoriteMovie(movieId)) }
         }
     }
 
     private fun setUiValues(mv: MovieDetailsModel) {
-        CoroutineScope(Dispatchers.Default).launch {
-            _uiState.update { it.copy(movie = mv, movieId = mv.id.toString(),isLoading = false) }
+        coroutineScope.launch {
+            _uiState.update { it.copy(movie = mv, movieId = mv.id.toString(), isLoading = false) }
             val isFavorite = ds.checkIfIsAFavoriteMovie(_uiState.value.movie.id.toString())
             if (isFavorite) _uiState.update { it.copy(isFavorite = isFavorite) }
         }
@@ -105,7 +104,4 @@ class MovieDetailsScreenModel(
         }
     }
 
-    private fun setMovieId(movieId: String) {
-        _uiState.update { it.copy(movieId = movieId) }
-    }
 }
