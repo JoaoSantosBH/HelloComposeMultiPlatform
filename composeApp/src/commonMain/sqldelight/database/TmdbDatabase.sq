@@ -1,0 +1,20 @@
+CREATE TABLE FavoriteMovieEntity(
+    movieId TEXT NOT NULL PRIMARY KEY,
+    movieName TEXT NOT NULL
+);
+
+getFavoriteMovie:
+SELECT *
+FROM FavoriteMovieEntity
+WHERE movieId = :movieId;
+
+insertFavoriteMovieEntity:
+INSERT OR REPLACE
+INTO FavoriteMovieEntity(
+    movieName,
+    movieId
+)
+VALUES( ?, ?);
+
+removeFavoriteMovie:
+DELETE FROM  FavoriteMovieEntity WHERE movieId = :movieId;

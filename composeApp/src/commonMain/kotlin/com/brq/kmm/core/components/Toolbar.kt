@@ -11,10 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import com.brq.kmm.MainRes
@@ -25,8 +21,6 @@ import com.brq.kmm.features.home.presentation.HomeEvent
 fun HomeToolBarCompose(
     onEvent: (HomeEvent) -> Unit
 ) {
-
-    var showMenu by remember { mutableStateOf(false) }
 
     TopAppBar(
         title = {
@@ -41,7 +35,7 @@ fun HomeToolBarCompose(
 
         actions = {
             IconButton(
-                onClick = { showMenu = true }
+                onClick = { onEvent(HomeEvent.OnClickExitEvent(-555)) }
             ) {
                 Icon(
                     imageVector = Icons.Default.ExitToApp,

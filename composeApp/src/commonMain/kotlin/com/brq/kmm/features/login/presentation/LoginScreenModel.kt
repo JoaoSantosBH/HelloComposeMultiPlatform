@@ -31,6 +31,7 @@ class LoginScreenModel(val navigator: () -> Unit) : ScreenModel {
                     is LoginEvent.ValidateLogin -> validatingLogin()
                     is LoginEvent.ValidateNameField -> validateNameField(event)
                     is LoginEvent.ValidatePassField -> validatePassField(event)
+                    else -> {}
                 }
             }
         }

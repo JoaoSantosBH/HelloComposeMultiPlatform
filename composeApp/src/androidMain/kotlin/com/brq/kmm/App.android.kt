@@ -1,10 +1,12 @@
 package com.brq.kmm
 
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 class AndroidApp : Application() {
     companion object {
@@ -14,8 +16,11 @@ class AndroidApp : Application() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
-        startKoin{
-            modules(androidModule)
+        startKoin {
+            val appModule = module {
+                single<Context> { this@AndroidApp }
+            }
+            modules(listOf(appModule, androidModule))
         }
     }
 }
