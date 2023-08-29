@@ -6,7 +6,7 @@
 ![Splash](img/logo.png)
 
 Para instruções de como configurar o projeto em KMP por favor acesse o [link](https://medium.com/@joaomarcelo-ms/kotlin-multiplataform-compartilhando-c%C3%B3digo-entre-android-e-ios-87c809e34220)
-
+</br>
 Link para o [Artigo](https://joaomarcelo-ms.medium.com/hello-compose-multiplatform-15b91f0035dd)
 
 - Padrão Clean
