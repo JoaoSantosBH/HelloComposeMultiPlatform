@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,17 +23,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.brq.kmm.MainRes
+import com.brq.kmm.core.components.ImageLoaderImage
 import com.brq.kmm.core.components.LoadingLayout
 import com.brq.kmm.core.data.NetworkUtils
 import com.brq.kmm.features.details.presentation.MovieDetailsEvent
 import com.brq.kmm.features.details.presentation.MovieDetailsUiState
-import com.seiko.imageloader.ImageRequestState
-import com.seiko.imageloader.rememberAsyncImagePainter
 import io.github.skeptick.libres.compose.painterResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,15 +68,19 @@ fun DetailsLayout(
         LazyColumn {
             item {
                 Box(modifier = Modifier.fillMaxWidth()) {
-                    val url = (NetworkUtils.PATH_PREFIX_URL + state.movie.posterPath) ?: ""
-                    val painter = rememberAsyncImagePainter(url)
-                    if (painter.requestState == ImageRequestState.Success)
-                        Image(
-                            painter,
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.FillWidth,
-                            contentDescription = state.movie.title
-                        )
+                    val modifier = Modifier
+                    ImageLoaderImage(
+                        data = state,
+                        contentScale = ContentScale.FillWidth,
+                        url = (NetworkUtils.PATH_PREFIX_URL + state.movie.posterPath),
+                        contentDescription = state.movie.title,
+                        modifier = Modifier,
+                        errorModifier = modifier then Modifier.aspectRatio(
+                            ratio = 1.0f,
+                            matchHeightConstraintsFirst = true,
+                        ),
+                        filterQuality = FilterQuality.Medium,
+                    )
                     Box(modifier = Modifier.padding(start = 8.dp, top = 16.dp, end = 16.dp)) {
                         Row(
                             Modifier.fillMaxWidth(),

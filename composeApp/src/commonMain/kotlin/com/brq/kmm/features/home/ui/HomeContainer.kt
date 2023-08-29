@@ -1,12 +1,12 @@
 package com.brq.kmm.features.home.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
@@ -26,17 +25,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.brq.kmm.MainRes
+import com.brq.kmm.core.components.ImageLoaderImage
 import com.brq.kmm.core.data.NetworkUtils.Companion.PATH_PREFIX_URL
 import com.brq.kmm.features.home.domain.MovieModel
 import com.brq.kmm.features.home.presentation.HomeEvent
-import com.seiko.imageloader.ImageRequestState
-import com.seiko.imageloader.rememberAsyncImagePainter
+
+const val mangaAspectRatio = 12.8F / 18.2F
 
 @Composable
 fun HomeContentContainer(
@@ -108,29 +107,21 @@ fun TabLayout(onEvent: (HomeEvent) -> Unit) {
 
 @Composable
 fun CardMovie(onEvent: (HomeEvent) -> Unit, card: MovieModel) {
-    Card(modifier = Modifier
-        .testTag("cardMovie${card.id}")
-        .size(250.dp)
-        .clickable {
+    Card(modifier = Modifier.testTag("cardMovie${card.id}").size(250.dp).clickable {
             onEvent(HomeEvent.OnClickCardMovieEvent(card.id))
-
         }) {
 
-        val url = (PATH_PREFIX_URL + card.posterPath) ?: ""
-        val painter = rememberAsyncImagePainter(url)
-        if (painter.requestState == ImageRequestState.Success)
-            Image(
-                painter,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.FillWidth,
-                contentDescription = card.title
-            )
-        else Column(modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CircularProgressIndicator()
-        }
-
+        val modifier = Modifier
+        ImageLoaderImage(
+            data = card,
+            url = (PATH_PREFIX_URL + card.posterPath),
+            contentDescription = card.title,
+            modifier = Modifier,
+            errorModifier = modifier then Modifier.aspectRatio(
+                ratio = mangaAspectRatio,
+                matchHeightConstraintsFirst = true,
+            ),
+            filterQuality = FilterQuality.Medium,
+        )
     }
 }

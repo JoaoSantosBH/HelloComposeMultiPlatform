@@ -9,7 +9,6 @@ import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_KTOR_CLIENT
 import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_LANGUAGE
 import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_PAGES_COUNT
 import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_TOKEN_PREFIX
-import com.brq.kmm.core.data.NetworkUtils.Companion.PARAM_TYPE
 import com.brq.kmm.core.data.NetworkUtils.Companion.PORTUGUESE_LANGUAGE
 import com.brq.kmm.core.domain.ApiError
 import com.brq.kmm.core.domain.ApiException
@@ -21,7 +20,9 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
+import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.http.append
 import okio.IOException
 
 class KtorClientImpl(
@@ -36,7 +37,7 @@ class KtorClientImpl(
                     parameters.append(PARAM_PAGES_COUNT, DEFAULT_NUMBER_PAGES)
                 }
                 headers {
-                    append(HttpHeaders.Accept, PARAM_TYPE)
+                    append(HttpHeaders.Accept, ContentType.Application.Json)
                     append(HttpHeaders.Authorization, PARAM_TOKEN_PREFIX + BuildConfig.API_TOKEN)
                     append(HttpHeaders.UserAgent, PARAM_KTOR_CLIENT)
                 }
@@ -67,7 +68,7 @@ class KtorClientImpl(
                     parameters.append(PARAM_LANGUAGE, PORTUGUESE_LANGUAGE)
                 }
                 headers {
-                    append(HttpHeaders.Accept, PARAM_TYPE)
+                    append(HttpHeaders.Accept, ContentType.Application.Json)
                     append(HttpHeaders.Authorization, PARAM_TOKEN_PREFIX + BuildConfig.API_TOKEN)
                     append(HttpHeaders.UserAgent, PARAM_KTOR_CLIENT)
                 }

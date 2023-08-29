@@ -10,7 +10,6 @@ class NetworkUtils {
         const val PATH_PREFIX_URL = "https://image.tmdb.org/t/p/w300/"
         const val PARAM_LANGUAGE = "language"
         const val PARAM_PAGES_COUNT = "page"
-        const val PARAM_TYPE = "application/json"
         const val PARAM_TOKEN_PREFIX = "Bearer "
         const val PARAM_KTOR_CLIENT = "ktor client"
     }

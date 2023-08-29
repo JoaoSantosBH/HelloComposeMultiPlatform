@@ -57,8 +57,7 @@ class HomeScreenModel(
     }
 
     private fun filterAllMovies() {
-        _uiState.update { it.copy(popularMovies = _uiState.value.cachedMovies, isTabFavSelected = false) }
-
+            _uiState.update { it.copy(popularMovies = _uiState.value.cachedMovies, isTabFavSelected = false) }
     }
     private fun updateFavorites() {
         var result: List<Int>
@@ -69,12 +68,13 @@ class HomeScreenModel(
     }
 
     private fun filterFavMovies() {
-        _uiState.update {
-            it.copy(popularMovies = _uiState.value.popularMovies.filter {
-                _uiState.value.favoriteIds.contains(
-                    it.id
-                )
-            }, isTabFavSelected = true)
-        }
+            _uiState.update { it.copy(popularMovies = emptyList()) }
+            _uiState.update {
+                it.copy(popularMovies = _uiState.value.cachedMovies.filter { model ->
+                    _uiState.value.favoriteIds.contains(
+                        model.id
+                    )
+                }, isTabFavSelected = true)
+            }
     }
 }
