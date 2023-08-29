@@ -22,7 +22,7 @@ Senha : abc123
 
 Link para o [Artigo](https://joaomarcelo-ms.medium.com/hello-compose-multiplatform-15b91f0035dd)
 
-![Splash](iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/app-icon-1024.png)
+![Splash](img/logo.png)
 
 Crie um usuário no [TMDB](https://developer.themoviedb.org/reference/movie-popular-list)
 Logo após crie uma chave de api e copie ela e o token de acesso para autorizar na plataforma e coloque no código do projeto em gradle.properties
